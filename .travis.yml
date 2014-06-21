@@ -8,9 +8,9 @@ before_script:
   - sudo apt-get update -qq &> /dev/null
   - sudo apt-get install -y binutils-mingw-w64-i686
   - sudo apt-get install -y gcc-mingw-w64-i686 &> /dev/null
-  - sudo apt-get install -y wine1.7 &> /dev/null
   - sudo apt-get build-dep libpcre3
-  - sudo apt-get install -y autotools-dev
+  - sudo apt-get install -y autotools-dev mingw-w64 mingw-w64-tools mingw-w64-common 
+
 language: c
 compiler:
   - gcc
