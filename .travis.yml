@@ -14,11 +14,6 @@ language: c
 compiler:
   - gcc
 script:
-  - export CC=i686-w64-mingw32-gcc
-  - export CPP=i686-w64-mingw32-g++
-  - export AR=i686-w64-mingw32-ar
-  - export RANLIB=i686-w64-mingw32-ranlib
-  - export RC=i686-w64-mingw32-windres
   - ./configure --host=i686-w64-mingw32
   - make
   - sudo apt-get install -y wine1.7
