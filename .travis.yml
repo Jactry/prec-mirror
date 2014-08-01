@@ -1,20 +1,25 @@
 os:
   - linux
-before_install:
-  - "export DISPLAY=:99.0"
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+
 before_script:
-  - sudo apt-get update -qq &> /dev/null
+  - sudo add-apt-repository -y ppa:ubuntu-wine/ppa
+  - sudo add-apt-repository -y ppa:rbose-debianizer/automake
+  - sudo apt-get update -qq
+  - sudo apt-get install -y automake1.4
   - sudo apt-get install -y binutils-mingw-w64-i686
-  - sudo apt-get install -y gcc-mingw-w64-i686 &> /dev/null
-  - sudo apt-get build-dep libpcre3
-  - sudo apt-get install -y autotools-dev mingw-w64 mingw-w64-tools automake
+  - sudo apt-get install -y gcc-mingw-w64-i686 mingw-w64-tools
 
 language: c
 compiler:
   - gcc
 script:
   - export CC=i686-w64-mingw32-gcc
+  - export AR=i686-w64-mingw32-ar
+  - export RANLIB=i686-w64-mingw32-ranlib
+  - export RC=i686-w64-mingw32-windres
   - ./configure --host=i686-w64-mingw32
   - make
+  - sudo apt-get install -y wine1.7
+  - sudo update-binfmts --disable wine
+  - sudo update-binfmts --enable wine
   - wine cmd /c RunTest.bat
